@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/detail_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:text="@string/task_title"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/detail_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/detail_task_title"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/detail_task_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:text="@string/task_message"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/detail_notes_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/detail_task_notes"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/detail_task_priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:text="@string/task_priority"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/detail_priority_values"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/detail_task_priority"
+            android:layout_marginLeft="15dp"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+</LinearLayout>

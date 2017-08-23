@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/task_title"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+
+        <EditText
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/task_title"
+            android:hint="@string/task_title_hint"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/hintTextColor"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/task_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:text="@string/task_message"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+
+        <EditText
+            android:id="@+id/notes_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/task_notes"
+            android:hint="@string/task_notes_hint"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/hintTextColor"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/task_priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/task_priority"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/priority_values"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/task_priority"
+            android:layout_marginLeft="15dp"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:src="@drawable/save"
+        android:layout_margin="20dp"
+        android:layout_gravity="bottom|end"/>
+
+</LinearLayout>
