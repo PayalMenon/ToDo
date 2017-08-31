@@ -14,9 +14,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+
 import javax.inject.Inject;
+
 import todo.android.example.com.todo.Application;
 import todo.android.example.com.todo.R;
 import todo.android.example.com.todo.database.DbHelper;
@@ -30,6 +33,7 @@ public class AddNewFragment extends DialogFragment {
     private EditText notes;
     private Spinner prioritySpinner;
     private FloatingActionButton saveButton;
+    private DatePicker datePicker;
     private String priority;
 
     @Inject
@@ -80,19 +84,25 @@ public class AddNewFragment extends DialogFragment {
             }
         });
 
-        if(MODE_EDIT.equals(getArguments().getString("mode"))) {
+        datePicker = view.findViewById(R.id.date_picker);
+
+
+        if (MODE_EDIT.equals(getArguments().getString("mode"))) {
 
             ToDoObject object = dbHelper.getTodoTask(getArguments().getString("Title"));
             titleText.setText(getArguments().getString("Title"));
             notes.setText(object.getTodoNotes());
-            if("LOW".equals(object.getTodoPriority())) {
+            if ("LOW".equals(object.getTodoPriority())) {
                 prioritySpinner.setSelection(0);
             } else if ("MEDIUM".equals(object.getTodoPriority())) {
                 prioritySpinner.setSelection(1);
             } else {
                 prioritySpinner.setSelection(2);
             }
+            datePicker.init(object.getYear(), object.getMonth(), object.getDay(), null);
         }
+
+        datePicker.setCalendarViewShown(false);
 
         saveButton = view.findViewById(R.id.save);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +113,11 @@ public class AddNewFragment extends DialogFragment {
                 obj.setTodoNotes(notes.getText().toString());
                 obj.setTodoPriority(priority);
 
-                if(MODE_EDIT.equals(getArguments().getString("mode"))) {
+                obj.setDay(datePicker.getDayOfMonth());
+                obj.setMonth(datePicker.getMonth());
+                obj.setYear(datePicker.getYear());
+
+                if (MODE_EDIT.equals(getArguments().getString("mode"))) {
                     ((MainActivity) getActivity()).onTodoEdited(obj, getArguments().getInt("Position"));
                 } else {
                     ((MainActivity) getActivity()).onTodoAdded(obj);

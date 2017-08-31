@@ -9,18 +9,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.text.DateFormatSymbols;
+
 import javax.inject.Inject;
+
 import todo.android.example.com.todo.Application;
 import todo.android.example.com.todo.R;
 import todo.android.example.com.todo.database.DbHelper;
 
-public class DetailsFragment extends Fragment implements MainActivity.DetailsFragmentListener{
+public class DetailsFragment extends Fragment implements MainActivity.DetailsFragmentListener {
 
     private static final String ADD_NEW_FRAGMENT = "add_new_fragment";
 
     private TextView titleText;
     private TextView notesText;
     private TextView priorityText;
+    private TextView dueDateText;
 
     @Inject
     DbHelper dbHelper;
@@ -63,7 +68,18 @@ public class DetailsFragment extends Fragment implements MainActivity.DetailsFra
         priorityText = getActivity().findViewById(R.id.detail_priority_values);
         priorityText.setText(object.getTodoPriority());
 
-        ((MainActivity)getActivity()).setDetailsFragmentListener(this);
+        dueDateText = getActivity().findViewById(R.id.detail_due_date_values);
+        updateDueDateText(object);
+
+        ((MainActivity) getActivity()).setDetailsFragmentListener(this);
+    }
+
+    private void updateDueDateText(ToDoObject object) {
+        String month = new DateFormatSymbols().getShortMonths()[object.getMonth()];
+        StringBuilder builder = new StringBuilder();
+        String date = builder.append(month + " " + object.getDay() + " " + object.getYear()).toString();
+
+        dueDateText.setText(date);
     }
 
     @Override
@@ -83,8 +99,7 @@ public class DetailsFragment extends Fragment implements MainActivity.DetailsFra
 
         if (item.getItemId() == R.id.action_delete) {
 
-            //((MainActivity)getActivity()).onToDoDeleted(taskPosition);
-            ((MainActivity)getActivity()).onToDoDeleted(getArguments().getString("Title"));
+            ((MainActivity) getActivity()).onToDoDeleted(getArguments().getString("Title"));
             return true;
         } else if (item.getItemId() == R.id.action_edit) {
 
@@ -104,5 +119,6 @@ public class DetailsFragment extends Fragment implements MainActivity.DetailsFra
         titleText.setText(object.getTodoTitle());
         notesText.setText(object.getTodoNotes());
         priorityText.setText(object.getTodoPriority());
+        updateDueDateText(object);
     }
 }

@@ -6,9 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Singleton;
+
 import todo.android.example.com.todo.ui.ToDoObject;
 
 @Singleton
@@ -20,6 +23,9 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TODO_COLUMN_TITLE = "title";
     public static final String TODO_COLUMN_ADDITIONAL_NOTES = "notes";
     public static final String TODO_COLUMN_PRIORITY = "priority";
+    public static final String TODO_COLUMN_YEAR = "year";
+    public static final String TODO_COLUMN_MONTH = "month";
+    public static final String TODO_COLUMN_DAY = "day";
 
     public DbHelper(Context context, String dbName, int version) {
         super(context, dbName, null, version);
@@ -34,7 +40,10 @@ public class DbHelper extends SQLiteOpenHelper {
                             + TODO_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                             + TODO_COLUMN_TITLE + " TEXT NOT NULL, "
                             + TODO_COLUMN_ADDITIONAL_NOTES + " TEXT NOT NULL, "
-                            + TODO_COLUMN_PRIORITY + " INTEGER NOT NULL " + ")");
+                            + TODO_COLUMN_PRIORITY + " INTEGER NOT NULL, "
+                            + TODO_COLUMN_DAY + " INTEGER NOT NULL, "
+                            + TODO_COLUMN_MONTH + " INTEGER NOT NULL, "
+                            + TODO_COLUMN_YEAR + " INTEGER NOT NULL " + ")");
         } catch (SQLiteException e) {
 
             System.out.println("Exception while creating table " + e.toString());
@@ -58,6 +67,9 @@ public class DbHelper extends SQLiteOpenHelper {
             if (object.getTodoNotes() != null) {
                 values.put(TODO_COLUMN_ADDITIONAL_NOTES, object.getTodoNotes());
             }
+            values.put(TODO_COLUMN_DAY, object.getDay());
+            values.put(TODO_COLUMN_MONTH, object.getMonth());
+            values.put(TODO_COLUMN_YEAR, object.getYear());
 
             db.insert(TODO_TABLE_NAME, null, values);
 
@@ -85,6 +97,9 @@ public class DbHelper extends SQLiteOpenHelper {
                             object.setTodoTitle(cursor.getString(1));
                             object.setTodoNotes(cursor.getString(2));
                             object.setTodoPriority(getPriority(cursor.getInt(3)));
+                            object.setDay(cursor.getInt(4));
+                            object.setMonth(cursor.getInt(5));
+                            object.setYear(cursor.getInt(6));
                             todoList.add(object);
                         } while (cursor.moveToNext());
                     }
@@ -114,6 +129,9 @@ public class DbHelper extends SQLiteOpenHelper {
                 object.setTodoTitle(cursor.getString(cursor.getColumnIndex(TODO_COLUMN_TITLE)));
                 object.setTodoNotes(cursor.getString(cursor.getColumnIndex(TODO_COLUMN_ADDITIONAL_NOTES)));
                 object.setTodoPriority(getPriority(cursor.getInt(cursor.getColumnIndex(TODO_COLUMN_PRIORITY))));
+                object.setDay(cursor.getInt(cursor.getColumnIndex(TODO_COLUMN_DAY)));
+                object.setMonth(cursor.getInt(cursor.getColumnIndex(TODO_COLUMN_MONTH)));
+                object.setYear(cursor.getInt(cursor.getColumnIndex(TODO_COLUMN_YEAR)));
             }
         } catch (Exception e) {
             System.out.println("Error while fetching item with exception = " + e.toString());
@@ -142,11 +160,15 @@ public class DbHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(TODO_COLUMN_TITLE, object.getTodoTitle());
             values.put(TODO_COLUMN_PRIORITY, getPriority(object.getTodoPriority()));
-            if(object.getTodoNotes() != null) {
+            if (object.getTodoNotes() != null) {
                 values.put(TODO_COLUMN_ADDITIONAL_NOTES, object.getTodoNotes());
             }
+            values.put(TODO_COLUMN_DAY, object.getDay());
+            values.put(TODO_COLUMN_MONTH, object.getMonth());
+            values.put(TODO_COLUMN_YEAR, object.getYear());
+
             String selection = TODO_COLUMN_TITLE + " LIKE ?";
-            String[] selectionArgs = { originalTitle };
+            String[] selectionArgs = {originalTitle};
 
             db.update(TODO_TABLE_NAME, values, selection, selectionArgs);
         } catch (Exception e) {
@@ -159,11 +181,11 @@ public class DbHelper extends SQLiteOpenHelper {
     private String getPriority(int position) {
         String priority = null;
 
-        if(1 == position) {
+        if (1 == position) {
             priority = "LOW";
         } else if (2 == position) {
             priority = "MEDIUM";
-        } else  {
+        } else {
             priority = "HIGH";
         }
 
@@ -173,7 +195,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private int getPriority(String priority) {
 
         int position;
-        if("LOW".equals(priority)) {
+        if ("LOW".equals(priority)) {
             position = 1;
         } else if ("MEDIUM".equals(priority)) {
             position = 2;

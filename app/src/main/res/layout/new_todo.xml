@@ -100,6 +100,14 @@
 
     </RelativeLayout>
 
+    <DatePicker
+        android:id="@+id/date_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/save"
         android:layout_width="wrap_content"
